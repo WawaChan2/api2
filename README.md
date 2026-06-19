@@ -18,7 +18,14 @@ npm install
 ```bash
 Copy-Item .env.example .env
 ```
-6. In the .env file, find
+6. To generate Laravel encryption key, execute
+```bash
+php artisan key:generate
+```
+After execution, you should see something like this in the .env file
+> APP_KEY=base64:8f3k9d0aKJH2...random_string...
+
+7. In the .env file, find
 > DB_CONNECTION=mysql\
 DB_HOST=127.0.0.1\
 DB_PORT=3306\
@@ -28,16 +35,21 @@ DB_PASSWORD=
 
 Modify it accordingly to ensure it matches your database configuration (**DB_DATABASE=inventory2_db** is mandatory).
 
-7. Remember to save the changes.
-8. Head over to Laragon and start it.
-9. Create a new database, with the name inventory2_db. Keep the default collation. Press OK.
-10. Head back to the VS Code project.
-11. On the terminal, run
+8. Remember to save the changes.
+9. Head over to Laragon and start it.
+10. Create a new database, with the name inventory2_db. Keep the default collation. Press OK.
+11. Head back to the VS Code project.
+12. On the terminal, run
 ```bash
 php artisan config:clear
 ```
-12. Then, run
+13. Then, run
 ```bash
 php artisan migrate
 ```
-13. Close HeidiSQL and reopen it. You should see that new tables are created in inventory2_db.
+14. Close HeidiSQL and reopen it. You should see that new tables are created in inventory2_db.
+15. To run the server, execute
+```bash
+composer run dev
+```
+16. Enter [http://localhost:8000](http://localhost:8000) in the address bar. You should see a page with log in and register button. Make sure that Laragon is on.
