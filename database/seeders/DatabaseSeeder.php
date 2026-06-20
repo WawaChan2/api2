@@ -21,11 +21,9 @@ class DatabaseSeeder extends Seeder
             TransactionSeeder::class,
             ProductSeeder::class,
             InventorySeeder::class,
-            OrderSeeder::class,
+            TransactionSubtypeSeeder::class,
             OrderItemSeeder::class,
-            GoodsReceiptSeeder::class,
             ReceiptItemSeeder::class,
-            AdjustmentSeeder::class,
             MovementSeeder::class
         ]);
     }

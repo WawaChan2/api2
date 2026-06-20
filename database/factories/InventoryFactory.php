@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Inventory;
+use App\Models\Product;
+use App\Models\Warehouse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,9 @@ class InventoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'product_id' => Product::inRandomOrder()->first()->id,
+            'warehouse_id' => Warehouse::inRandomOrder()->first()->id,
+            'quantity' => fake()->numberBetween(0, 500),
         ];
     }
 }
