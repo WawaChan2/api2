@@ -43,9 +43,7 @@ class TransactionSubtypeSeeder extends Seeder
                 'status' => $status,
             ]);
 
-            $type = $status === 'CANCELLED' ? 'ORDER_CANCELLATION' : 'ORDER';
-
-            Transaction::where('transaction_id', $id)->update(['type' => $type]);
+            Transaction::where('transaction_id', $id)->update(['type' => 'ORDER']);
         }
 
         foreach ($goodsReceiptIds as $id) {

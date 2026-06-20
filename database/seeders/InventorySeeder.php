@@ -27,11 +27,7 @@ class InventorySeeder extends Seeder
             }
         }
 
-        shuffle($allPairs);
-        $subsetSize = (int) (count($allPairs) * 0.7);
-        $selected = array_slice($allPairs, 0, $subsetSize);
-
-        foreach ($selected as $combo) {
+        foreach ($allPairs as $combo) {
             Inventory::factory()->create([
                 'product_id' => $combo['product_id'],
                 'warehouse_id' => $combo['warehouse_id'],
