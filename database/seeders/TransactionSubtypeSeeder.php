@@ -30,22 +30,30 @@ class TransactionSubtypeSeeder extends Seeder
         $adjustmentIds = $transactionIds->slice($orderCount + $goodsReceiptCount, $adjustmentCount);
 
         foreach ($orderIds as $id) {
-            Order::create([
-                'order_id' => $id,
-                'user_id' => User::where('role', 'USER')->inRandomOrder()->first()->id,
-                'status' => Arr::random([
+            $status = Arr::random([
                     'PENDING', 
                     'SHIPPED', 
                     'DELIVERED', 
                     'CANCELLED'
-                ]),
+                ]);
+
+            Order::create([
+                'order_id' => $id,
+                'user_id' => User::where('role', 'USER')->inRandomOrder()->first()->id,
+                'status' => $status,
             ]);
+
+            $type = $status === 'CANCELLED' ? 'ORDER_CANCELLATION' : 'ORDER';
+
+            Transaction::where('transaction_id', $id)->update(['type' => $type]);
         }
 
         foreach ($goodsReceiptIds as $id) {
             GoodsReceipt::create([
                 'receipt_id' => $id,
             ]);
+
+            Transaction::where('transaction_id', $id)->update(['type' => 'GOODS_RECEIPT']);
         }
 
         $i = 0;
@@ -56,6 +64,8 @@ class TransactionSubtypeSeeder extends Seeder
                 'adjustment_id' => $id,
                 'note' => $notes[$i],
             ]);
+
+            Transaction::where('transaction_id', $id)->update(['type' => 'ADJUSTMENT']);
 
             $i++;
         }
