@@ -45,7 +45,7 @@ php artisan config:clear
 ```
 13. Then, run
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 14. Close HeidiSQL and reopen it. You should see that new tables are created in inventory2_db.
 15. To run the server, execute
@@ -53,3 +53,4 @@ php artisan migrate
 composer run dev
 ```
 16. Enter [http://localhost:8000](http://localhost:8000) in the address bar. You should see a page with log in and register button. Make sure that Laragon is on.
+17. To log in, enter one of the emails stored in the database. All user passwords are 'password'.
