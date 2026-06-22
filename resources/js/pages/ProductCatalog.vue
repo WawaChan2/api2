@@ -13,6 +13,12 @@ defineOptions({
         ],
     },
 });
+
+const props = defineProps({
+    products: Array
+})
+
+console.log(props.products);
 </script>
 
 <template>
