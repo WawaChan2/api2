@@ -18,6 +18,14 @@ npm install
 ```bash
 Copy-Item .env.example .env
 ```
+On Command Prompt, execute
+```bash
+copy .env.example .env
+```
+For Unix-based and Linux-based terminals, execute
+```bash
+cp .env.example .env
+```
 6. To generate Laravel encryption key, execute
 ```bash
 php artisan key:generate
@@ -47,10 +55,16 @@ php artisan config:clear
 ```bash
 php artisan migrate --seed
 ```
-14. Close HeidiSQL and reopen it. You should see that new tables are created in inventory2_db.
-15. To run the server, execute
+14. In case there is any bug or you feel like refreshing the database with new data, run
+```bash
+php artisan migrate:fresh --seed
+```
+You can run this however times and whenever you want.
+
+15. Close HeidiSQL and reopen it. You should see that new tables are created in inventory2_db.
+16. To run the server, execute
 ```bash
 composer run dev
 ```
-16. Enter [http://localhost:8000](http://localhost:8000) in the address bar. You should see a page with log in and register button. Make sure that Laragon is on.
-17. To log in, enter one of the emails stored in the database. All user passwords are 'password'.
+17. Enter [http://localhost:8000](http://localhost:8000) in the address bar. You should see a page with log in and register button. Make sure that Laragon is on.
+18. To log in, enter one of the emails stored in the database. All user passwords are 'password'.
