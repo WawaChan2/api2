@@ -14,11 +14,11 @@ git clone https://github.com/WawaChan2/api2.git
 composer install
 npm install
 ```
-5. Copy .env.example and rename it to .env. On Windows Powershell, execute
+5. Copy .env.example and rename it to .env. If you are using Windows Powershell, execute
 ```bash
 Copy-Item .env.example .env
 ```
-On Command Prompt, execute
+If you are using Command Prompt, execute
 ```bash
 copy .env.example .env
 ```
