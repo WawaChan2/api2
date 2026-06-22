@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Order;
@@ -13,33 +14,38 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'desc')->get()->map(function ($order) {
+        // 1. Filter by current user ID for security
+        $orders = Order::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($order) {
 
-            $user = User::find($order->user_id);
-            $email = $user ? $user->email : 'Unknown User';
+                // 2. Find the user for this order
+                $user = User::find($order->user_id);
+                $email = $user ? $user->email : 'Unknown User';
 
-            $total = 0;
-            $items = OrderItem::where('order_id', $order->order_id)->get()->map(function($item) use (&$total) {
+                // 3. Calculate total and get product names
+                $total = 0;
+                $items = OrderItem::where('order_id', $order->order_id)->get()->map(function($item) use (&$total) {
+                    $product = Product::where('product_id', $item->product_id)->first();
+                    $total += ($item->quantity * $item->unit_price);
 
-                $product = Product::where('product_id', $item->product_id)->first();
+                    return [
+                        'product_id' => $item->product_id,
+                        'quantity' => $item->quantity,
+                        'unit_price' => $item->unit_price,
+                        'product_name' => $product ? $product->product_name : 'Unknown Item'
+                    ];
+                });
 
-                $total += ($item->quantity * $item->unit_price);
+                // 4. Construct the final array with user_email included
+                $orderArray = $order->toArray();
+                $orderArray['user_email'] = $email; // This is the line you were looking for!
+                $orderArray['items'] = $items->toArray();
+                $orderArray['total_amount'] = $total;
 
-                return [
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'unit_price' => $item->unit_price,
-                    'product_name' => $product ? $product->product_name : 'Unknown Item'
-                ];
+                return $orderArray;
             });
-
-            $orderArray = $order->toArray();
-            $orderArray['user_email'] = $email;
-            $orderArray['items'] = $items->toArray();
-            $orderArray['total_amount'] = $total;
-
-            return $orderArray;
-        });
 
         return Inertia::render('OrderHistory', [
             'orders' => $orders
