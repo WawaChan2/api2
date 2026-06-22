@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
-import { cart } from '@/routes';
+import { catalog } from '@/routes';
 
 defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: 'Cart',
-                href: cart(),
+                title: 'Product Catalog',
+                href: catalog(),
             },
         ],
     },

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from '@lucide/vue';
+import { Link, usePage } from '@inertiajs/vue3';
+import { BookOpen, FolderGit2, LayoutGrid, ChartColumnBig, ShoppingBasket, Package, ShoppingBag } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
-import NavFooter from '@/components/NavFooter.vue';
+// import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
@@ -14,16 +14,49 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { cart, catalog, dashboard, orders, stats } from '@/routes';
 import type { NavItem } from '@/types';
+import { computed } from 'vue';
 
-const mainNavItems: NavItem[] = [
+const page = usePage();
+const role = computed(() => (page.props.auth as any).role);
+
+const adminNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
     },
+]
+
+const userNavItems: NavItem[] = [
+    {
+        title: 'Product Catalog',
+        href: catalog(),
+        icon: ShoppingBag,
+    },
+    {
+        title: 'Orders',
+        href: orders(),
+        icon: Package,
+    },
+    {
+        title: 'Stats',
+        href: stats(),
+        icon: ChartColumnBig,
+    },
+    {
+        title: 'Cart',
+        href: cart(),
+        icon: ShoppingBasket,
+    },
 ];
+
+const mainNavItems = computed(() => role.value === 'ADMIN' ? adminNavItems : userNavItems);
+
+const homePath = computed(() =>
+    role.value === 'ADMIN' ? dashboard() : catalog()
+);
 
 const footerNavItems: NavItem[] = [
     {
@@ -45,7 +78,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link :href="homePath">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
@@ -58,7 +91,7 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
+            <!-- <NavFooter :items="footerNavItems" /> -->
             <NavUser />
         </SidebarFooter>
     </Sidebar>
