@@ -1,7 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import { LucideShoppingBasket } from '@lucide/vue';
+import { LucideShoppingBasket, Search } from '@lucide/vue';
 import { catalog } from '@/routes';
+import { ref, computed } from 'vue';
 
 defineOptions({
     layout: {
@@ -17,6 +18,30 @@ defineOptions({
 const props = defineProps({
     products: Array,
 });
+
+const searchText = ref('');
+const selectedCategory = ref('');
+
+const categories = computed(() => {
+    const names = props.products
+        .map((p) => p.category?.category_name)
+        .filter(Boolean);
+    return [...new Set(names)].sort();
+});
+
+const filteredProducts = computed(() => {
+    return props.products.filter((product) => {
+        const matchesSearch = product.product_name
+            .toLowerCase()
+            .includes(searchText.value.toLowerCase());
+
+        const matchesCategory =
+            selectedCategory.value === '' ||
+            product.category?.category_name === selectedCategory.value;
+
+        return matchesSearch && matchesCategory;
+    });
+});
 </script>
 
 <template>
@@ -25,9 +50,48 @@ const props = defineProps({
     <div
         class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
     >
+        <!-- Filter Bar -->
+        <div
+            class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+        >
+            <!-- Left: Text Search -->
+            <div class="relative w-full sm:max-w-xs">
+                <Search
+                    class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-500"
+                />
+                <input
+                    v-model="searchText"
+                    type="text"
+                    placeholder="Search products..."
+                    class="w-full rounded-lg border border-gray-200 bg-white py-2 pr-4 pl-9 text-sm text-gray-900 transition outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-[#161920] dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-blue-500"
+                />
+            </div>
+
+            <!-- Right: Category Filter -->
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-500 dark:text-gray-400"
+                    >Category:</span
+                >
+                <select
+                    v-model="selectedCategory"
+                    class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 transition outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-[#161920] dark:text-gray-100 dark:focus:border-blue-500"
+                >
+                    <option value="">All</option>
+                    <option
+                        v-for="category in categories"
+                        :key="category"
+                        :value="category"
+                    >
+                        {{ category }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
         <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             <div
-                v-for="product in products"
+                v-for="product in filteredProducts"
                 :key="product.id"
                 class="group relative flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-[#161920]"
             >
@@ -70,17 +134,23 @@ const props = defineProps({
 
                     <div class="relative mt-2 h-14 overflow-hidden">
                         <!-- Category & Price: slides out to the left on hover -->
-                        <div class="absolute inset-0 flex flex-col justify-start transition-transform duration-300 ease-in-out translate-y-0 group-hover:-translate-y-full">
+                        <div
+                            class="absolute inset-0 flex translate-y-0 flex-col justify-start transition-transform duration-300 ease-in-out group-hover:-translate-y-full"
+                        >
                             <p class="text-sm text-gray-400 dark:text-gray-500">
                                 {{ product.category?.category_name ?? '-' }}
                             </p>
-                            <span class="mt-1 text-lg font-bold text-gray-900 dark:text-white">
+                            <span
+                                class="mt-1 text-lg font-bold text-gray-900 dark:text-white"
+                            >
                                 ${{ Number(product.price).toFixed(2) }}
                             </span>
                         </div>
 
                         <!-- Action Buttons: slides in from the right on hover -->
-                        <div class="absolute inset-0 flex items-center gap-3 transition-transform duration-300 ease-in-out translate-y-full group-hover:translate-y-0">
+                        <div
+                            class="absolute inset-0 flex translate-y-full items-center gap-3 transition-transform duration-300 ease-in-out group-hover:translate-y-0"
+                        >
                             <button
                                 class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
                             >
