@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import { LucideShoppingBasket, Search } from '@lucide/vue';
 import { catalog } from '@/routes';
 import { ref, computed } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 defineOptions({
     layout: {
@@ -42,6 +43,10 @@ const filteredProducts = computed(() => {
         return matchesSearch && matchesCategory;
     });
 });
+
+const goToProductDetail = (id) => {
+    router.visit(`/catalog/${id}`)
+}
 </script>
 
 <template>
@@ -92,7 +97,8 @@ const filteredProducts = computed(() => {
         <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             <div
                 v-for="product in filteredProducts"
-                :key="product.id"
+                :key="product.product_id"
+                @click="goToProductDetail(product.product_id)"
                 class="group relative flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-[#161920]"
             >
                 <!-- Product Image -->
