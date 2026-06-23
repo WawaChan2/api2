@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import { orders as ordersRoute } from '@/routes';
 
@@ -94,6 +95,16 @@ const formatDateTime = (dateStr: string) => {
     return `${d.toLocaleDateString('en-US')} ${d.toLocaleTimeString('en-US')}`;
 };
 const formatMoney = (amount: number | string) => Number(amount).toLocaleString('en-MY', { minimumFractionDigits: 2 });
+
+const cancelOrder = (orderId: number)=>{
+    if(confirm('Are you sure you want to cancel this order?')){
+        router.post(`/orders/${orderId}/cancel`, {},{
+            onSuccess: () => {
+                closeOrderDetails();
+            }
+        });
+    }
+};
 
 </script>
 
@@ -239,7 +250,8 @@ const formatMoney = (amount: number | string) => Number(amount).toLocaleString('
                 </div>
 
                 <button
-                    v-if="selectedOrder.status === 'PENDING'"
+                    v-if="selectedOrder.status === 'PENDING' || selectedOrder.status === 'SHIPPED'"
+                    @click="cancelOrder(selectedOrder.order_id)"
                     class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2 px-4 rounded transition-colors shadow-sm"
                 >
                     Cancel Order

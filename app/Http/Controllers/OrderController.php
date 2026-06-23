@@ -14,17 +14,14 @@ class OrderController extends Controller
 {
     public function index()
     {
-        // 1. Filter by current user ID for security
         $orders = Order::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($order) {
 
-                // 2. Find the user for this order
                 $user = User::find($order->user_id);
                 $email = $user ? $user->email : 'Unknown User';
 
-                // 3. Calculate total and get product names
                 $total = 0;
                 $items = OrderItem::where('order_id', $order->order_id)->get()->map(function($item) use (&$total) {
                     $product = Product::where('product_id', $item->product_id)->first();
@@ -38,9 +35,8 @@ class OrderController extends Controller
                     ];
                 });
 
-                // 4. Construct the final array with user_email included
                 $orderArray = $order->toArray();
-                $orderArray['user_email'] = $email; // This is the line you were looking for!
+                $orderArray['user_email'] = $email;
                 $orderArray['items'] = $items->toArray();
                 $orderArray['total_amount'] = $total;
 
@@ -51,4 +47,21 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
+
+    public function cancel(Order $order){
+        if($order->user_id !== Auth::id()){
+            abort(403, 'Unauthorized action.');
+        }
+
+        if(!in_array($order->status, ['PENDING', 'SHIPPED'])){
+            return back()->with('error', 'This order cannot be cancelled.');
+        }
+
+        $order->update([
+            'status' => 'CANCELLED',
+        ]);
+
+        return back()->with('message', 'Order cancelled successfully.');
+    }
 }
+
