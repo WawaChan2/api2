@@ -23,7 +23,7 @@ class OrderController extends Controller
                 $email = $user ? $user->email : 'Unknown User';
 
                 $total = 0;
-                $items = OrderItem::where('order_id', $order->order_id)->get()->map(function($item) use (&$total) {
+                $itemsCollection = OrderItem::where('order_id', $order->order_id)->get()->map(function($item) use (&$total) {
                     $product = Product::where('product_id', $item->product_id)->first();
                     $total += ($item->quantity * $item->unit_price);
 
@@ -34,10 +34,12 @@ class OrderController extends Controller
                         'product_name' => $product ? $product->product_name : 'Unknown Item'
                     ];
                 });
+                /** @var array $items */
+                $items = $itemsCollection->toArray();
 
                 $orderArray = $order->toArray();
                 $orderArray['user_email'] = $email;
-                $orderArray['items'] = $items->toArray();
+                $orderArray['items'] = $items;
                 $orderArray['total_amount'] = $total;
 
                 return $orderArray;
