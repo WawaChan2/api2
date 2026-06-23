@@ -64,40 +64,34 @@ const props = defineProps({
 
                 <!-- Product Info -->
                 <div class="flex flex-1 flex-col gap-1">
-                    <p
-                        class="text-sm text-gray-400 transition-all duration-300 group-hover:hidden dark:text-gray-500"
-                    >
-                        {{ product.category?.category_name ?? '-' }}
-                    </p>
-                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-center">
+                    <h3 class="font-semibold text-gray-900 dark:text-gray-100">
                         {{ product.product_name }}
                     </h3>
 
-                    <!-- Price Row -->
-                    <div
-                        class="mt-2 transition-all duration-300 group-hover:hidden"
-                    >
-                        <span
-                            class="text-lg font-bold text-gray-900 dark:text-white"
-                        >
-                            ${{ Number(product.price).toFixed(2) }}
-                        </span>
-                    </div>
+                    <div class="relative mt-2 h-14 overflow-hidden">
+                        <!-- Category & Price: slides out to the left on hover -->
+                        <div class="absolute inset-0 flex flex-col justify-start transition-transform duration-300 ease-in-out translate-y-0 group-hover:-translate-y-full">
+                            <p class="text-sm text-gray-400 dark:text-gray-500">
+                                {{ product.category?.category_name ?? '-' }}
+                            </p>
+                            <span class="mt-1 text-lg font-bold text-gray-900 dark:text-white">
+                                ${{ Number(product.price).toFixed(2) }}
+                            </span>
+                        </div>
 
-                    <!-- Action Buttons -->
-                    <div
-                        class="hidden mt-4 gap-3 transition-all duration-300 group-hover:flex"
-                    >
-                        <button
-                            class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
-                        >
-                            Buy ${{ Number(product.price).toFixed(2) }}
-                        </button>
-                        <button
-                            class="flex items-center justify-center rounded-lg border border-blue-600 p-1.5 text-blue-600 transition-colors hover:bg-blue-50 active:bg-blue-100 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30"
-                        >
-                            <LucideShoppingBasket class="h-5 w-5" />
-                        </button>
+                        <!-- Action Buttons: slides in from the right on hover -->
+                        <div class="absolute inset-0 flex items-center gap-3 transition-transform duration-300 ease-in-out translate-y-full group-hover:translate-y-0">
+                            <button
+                                class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
+                            >
+                                Buy ${{ Number(product.price).toFixed(2) }}
+                            </button>
+                            <button
+                                class="flex items-center justify-center rounded-lg border border-blue-600 p-1.5 text-blue-600 transition-colors hover:bg-blue-50 active:bg-blue-100 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30"
+                            >
+                                <LucideShoppingBasket class="h-5 w-5" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
