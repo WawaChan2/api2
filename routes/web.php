@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified', 'role.admin'])->group(function () {
 Route::middleware(['auth', 'verified', 'role.user'])->group(function () {
     Route::get('catalog', [ProductController::class, 'index'])->name('catalog');
     Route::get('orders', [OrderController::class, 'index'])->name('orders');
+    Route::post('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::inertia('stats', 'UserStats')->name('stats');
     Route::inertia('cart', 'Cart')->name('cart');
 });
