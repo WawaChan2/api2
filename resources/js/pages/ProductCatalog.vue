@@ -22,7 +22,7 @@ console.log(props.products);
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Product Catalog" />
 
     <div
         class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
