@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'sku' => 'ELEC-001',
                 'description' => 'High performance laptop',
-                'image_path' => 'images/products/laptop.jpg',
+                'image_path' => 'images/products/laptop.png',
             ],
             [
                 'product_name' => 'Wireless Mouse',
@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'sku' => 'ELEC-002',
                 'description' => 'Ergonomic mouse',
-                'image_path' => 'images/products/wireless-mouse.webp',
+                'image_path' => 'images/products/wireless-mouse.png',
             ],
 
             // Books
@@ -56,7 +56,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 3,
                 'sku' => 'FURN-001',
                 'description' => 'Comfortable ergonomic chair',
-                'image_path' => 'images/products/office-chair.webp',
+                'image_path' => 'images/products/office-chair.png',
             ],
             [
                 'product_name' => 'Standing Desk',
@@ -64,7 +64,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 3,
                 'sku' => 'FURN-002',
                 'description' => 'Height adjustable desk',
-                'image_path' => 'images/products/standing-desk.jpg',
+                'image_path' => 'images/products/standing-desk.png',
             ],
 
             // Clothing
@@ -74,7 +74,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4,
                 'sku' => 'CLOTH-001',
                 'description' => 'Cotton t-shirt',
-                'image_path' => 'images/products/t-shirt.jpg',
+                'image_path' => 'images/products/t-shirt.png',
             ],
             [
                 'product_name' => 'Jeans Slim Fit',
@@ -82,7 +82,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4,
                 'sku' => 'CLOTH-002',
                 'description' => 'Modern slim jeans',
-                'image_path' => 'images/products/jeans.webp',
+                'image_path' => 'images/products/jeans.png',
             ],
 
             // Food
@@ -92,7 +92,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 5,
                 'sku' => 'FOOD-001',
                 'description' => 'Quick meal noodles',
-                'image_path' => 'images/products/instant-noodles.jpg',
+                'image_path' => 'images/products/instant-noodles.png',
             ],
             [
                 'product_name' => 'Chocolate Bar',
@@ -100,7 +100,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 5,
                 'sku' => 'FOOD-002',
                 'description' => 'Sweet chocolate snack',
-                'image_path' => 'images/products/chocolate-bar.jpg',
+                'image_path' => 'images/products/chocolate-bar.png',
             ],
 
             // Other
@@ -110,7 +110,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 6,
                 'sku' => 'OTHE-001',
                 'description' => 'None other than the fatty',
-                'image_path' => 'images/products/oguri.jpg',
+                'image_path' => 'images/products/oguri.png',
             ],
             [
                 'product_name' => 'Tamamo Cross Plushie',
@@ -118,7 +118,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 6,
                 'sku' => 'OTHE-002',
                 'description' => 'A legend but also a brokie',
-                'image_path' => 'images/products/tamamo.jpg',
+                'image_path' => 'images/products/tamamo.png',
             ],
         ];
 
