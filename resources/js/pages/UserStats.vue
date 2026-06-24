@@ -47,7 +47,7 @@ const user = computed(() => page.props.auth?.user || {});
 
     <div class="flex h-full flex-1 flex-col gap-6 overflow-x-auto rounded-xl p-6">
         <!-- User Profile Section -->
-        <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-sidebar-border dark:bg-slate-900">
+        <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-gray-700 dark:bg-[#161920]">
             <div class="mb-6">
                 <h2 class="text-lg font-semibold">User Profile</h2>
             </div>
@@ -66,7 +66,7 @@ const user = computed(() => page.props.auth?.user || {});
         <!-- Stats Cards -->
         <div class="grid gap-4 md:grid-cols-3">
             <!-- Total Orders -->
-            <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-sidebar-border dark:bg-slate-900">
+            <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-gray-700 dark:bg-[#161920]">
                 <p class="text-sm text-gray-600 dark:text-gray-400">📦 Total Orders</p>
                 <p class="mt-2 text-3xl font-bold">{{ statsData.totalOrders || 0 }}</p>
             </div>
@@ -87,14 +87,14 @@ const user = computed(() => page.props.auth?.user || {});
         </div>
 
         <!-- Purchase History -->
-        <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-sidebar-border dark:bg-slate-900">
+        <div class="rounded-xl border border-sidebar-border/70 bg-white p-6 dark:border-gray-700 dark:bg-[#161920]">
             <h3 class="mb-4 text-lg font-semibold">Purchase History</h3>
             <div v-if="purchaseHistory.length === 0" class="empty-state">
                 <div class="empty-icon">📦</div>
                 <p>No orders yet</p>
             </div>
             <div v-else class="space-y-4">
-                <div v-for="order in purchaseHistory" :key="order.order_id" class="border border-gray-200 rounded-lg p-4 dark:border-gray-700">
+                <div v-for="order in purchaseHistory" :key="order.order_id" class="border border-gray-200 rounded-lg p-4 dark:border-gray-700 dark:bg-[#23262e]">
                     <div class="flex items-center justify-between mb-3">
                         <div>
                             <p class="font-semibold">Order #{{ order.order_id }}</p>
