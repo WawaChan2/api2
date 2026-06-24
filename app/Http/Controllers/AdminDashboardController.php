@@ -89,8 +89,7 @@ class AdminDashboardController extends Controller
                 ];
             });
 
-
-
+        // ── Warehouse capacity overview ────────────────────────────────────────
         $warehouses = Warehouse::all()->map(function ($wh) {
             $stock = (int) DB::table('inventory')
                 ->where('warehouse_id', $wh->warehouse_id)
