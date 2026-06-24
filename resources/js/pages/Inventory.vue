@@ -23,7 +23,6 @@ interface Movement {
 defineOptions({
     layout: {
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
             { title: 'Inventory', href: '/inventory' },
         ],
     },
