@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -62,6 +63,17 @@ class OrderController extends Controller
         $order->update([
             'status' => 'CANCELLED',
         ]);
+
+        $movements = Movement::where('transaction_id', $order->order_id)->get();
+
+        foreach ($movements as $movement) {
+            Movement::create([
+                'inventory_id' => $movement->inventory_id,
+                'transaction_id' => $movement->transaction_id,
+                'transaction_type' => 'ORDER_CANCELLATION',
+                'quantity_delta' => -$movement->quantity_delta,
+            ]);
+        };
 
         return back()->with('message', 'Order cancelled successfully.');
     }

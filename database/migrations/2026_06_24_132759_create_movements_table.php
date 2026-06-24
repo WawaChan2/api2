@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('movements', function (Blueprint $table) {
+            $table->id('movement_id');
             $table->foreignId('inventory_id')->constrained('inventory', 'inventory_id');
             $table->foreignId('transaction_id')->constrained('transactions', 'transaction_id');
             $table->enum('transaction_type', ['ORDER', 'ORDER_CANCELLATION', 'GOODS_RECEIPT', 'ADJUSTMENT']);
             $table->integer('quantity_delta');
             $table->timestamps();
-
-            $table->primary(['inventory_id', 'transaction_id']);
         });
     }
 

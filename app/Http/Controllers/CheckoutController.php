@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
+use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Transaction;
@@ -45,6 +47,15 @@ class CheckoutController extends Controller
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
                 'unit_price' => $item['price'],
+            ]);
+
+            $inventory = Inventory::where('product_id', $item['product_id'])->first();
+
+            Movement::create([
+                'inventory_id' => $inventory->inventory_id,
+                'transaction_id' => $transaction->transaction_id,
+                'transaction_type' => 'ORDER',
+                'quantity_delta' => -$item['quantity'],
             ]);
         }
 
