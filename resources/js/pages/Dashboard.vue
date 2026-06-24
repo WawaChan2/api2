@@ -61,7 +61,7 @@ const warehouses       = computed(() => (page.props.warehouses as Warehouse[]) |
 const monthlyRevenue   = computed(() => (page.props.monthlyRevenue as Record<string, number>) || {});
 
 // ── Tab state ─────────────────────────────────────────────────────────────────
-const activeTab = ref<'orders' | 'inventory'>('orders');
+const activeTab = ref<'orders'>('orders');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const STATUS_STYLES: Record<string, string> = {
@@ -312,21 +312,13 @@ const STATUSES = ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
         <div class="rounded-2xl border border-sidebar-border/70 bg-white shadow-sm dark:border-gray-700 dark:bg-[#161920]">
             <!-- Tab headers -->
             <div class="flex border-b border-gray-100 dark:border-gray-800">
-                <button
-                    v-for="tab in [{ key: 'orders', label: 'Recent Orders' }, { key: 'inventory', label: 'Inventory Movements' }]"
-                    :key="tab.key"
-                    @click="activeTab = tab.key as 'orders' | 'inventory'"
-                    class="px-6 py-3.5 text-sm font-medium transition-colors"
-                    :class="activeTab === tab.key
-                        ? 'border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400'
-                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'"
-                >
-                    {{ tab.label }}
-                </button>
+                <div class="px-6 py-3.5 text-sm font-medium border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400">
+                    Recent Orders
+                </div>
             </div>
 
             <!-- Recent Orders -->
-            <div v-if="activeTab === 'orders'" class="overflow-x-auto">
+            <div class="overflow-x-auto">
                 <table v-if="recentOrders.length" class="min-w-full text-sm">
                     <thead>
                         <tr class="border-b border-gray-100 dark:border-gray-800">
