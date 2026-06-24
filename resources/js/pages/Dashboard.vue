@@ -120,7 +120,7 @@ const STATUSES = ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
         <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
             <!-- Revenue -->
             <div class="col-span-2 md:col-span-1 flex flex-col gap-1 rounded-2xl border border-sidebar-border/70 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-[#161920]">
-                <span class="text-xs font-semibold uppercase tracking-widest text-gray-400">Revenue</span>
+                <span class="text-xs font-semibold uppercase tracking-widest text-gray-400">Revenue <span class="text-xs">(RM)</span></span>
                 <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ kpis.totalRevenue }}</span>
                 <span class="text-xs text-gray-400">all non-cancelled</span>
             </div>
@@ -256,7 +256,7 @@ const STATUSES = ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center justify-between mb-0.5">
                                 <span class="truncate text-sm font-medium text-gray-800 dark:text-gray-200">{{ p.product_name }}</span>
-                                <span class="ml-2 flex-shrink-0 text-xs text-gray-500 dark:text-gray-400">{{ p.units_sold }} units · ${{ p.revenue }}</span>
+                                <span class="ml-2 flex-shrink-0 text-xs text-gray-500 dark:text-gray-400">{{ p.units_sold }} units · RM {{ p.revenue }}</span>
                             </div>
                             <div class="h-1.5 w-full rounded-full bg-gray-100 dark:bg-gray-800">
                                 <div
@@ -349,7 +349,7 @@ const STATUSES = ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
                                     {{ order.status }}
                                 </span>
                             </td>
-                            <td class="px-5 py-3 text-right font-semibold text-gray-800 dark:text-gray-200">${{ order.total }}</td>
+                            <td class="px-5 py-3 text-right font-semibold text-gray-800 dark:text-gray-200">RM {{ order.total }}</td>
                             <td class="px-5 py-3 text-xs text-gray-400">{{ order.created_at }}</td>
                         </tr>
                     </tbody>

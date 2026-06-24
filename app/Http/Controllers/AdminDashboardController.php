@@ -127,7 +127,7 @@ class AdminDashboardController extends Controller
                 'totalUsers'    => $totalUsers,
                 'totalOrders'   => $totalOrders,
                 'pendingOrders' => $pendingOrders,
-                'totalRevenue'  => '$' . number_format((float) $totalRevenue, 2),
+                'totalRevenue'  => number_format((float) $totalRevenue, 2),
             ],
             'orderStatusBreakdown' => $orderStatusBreakdown,
             'recentOrders'         => $recentOrders,

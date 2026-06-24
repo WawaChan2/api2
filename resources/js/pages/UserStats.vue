@@ -37,7 +37,7 @@ defineOptions({
 });
 
 const page = usePage();
-const statsData = computed(() => (page.props.stats as Stats) || { totalOrders: 0, activeOrders: 0, totalSpent: '$0.00' });
+const statsData = computed(() => (page.props.stats as Stats) || { totalOrders: 0, activeOrders: 0, totalSpent: 'RM 0.00' });
 const purchaseHistory = computed(() => (page.props.purchaseHistory as Order[]) || []);
 const user = computed(() => page.props.auth?.user || {});
 </script>
@@ -82,7 +82,7 @@ const user = computed(() => page.props.auth?.user || {});
             <!-- Total Spent -->
             <div class="rounded-xl border border-green-200 bg-green-50 p-6 dark:border-green-900 dark:bg-green-950">
                 <p class="text-sm text-green-600 dark:text-green-400">💰 Total Spent</p>
-                <p class="mt-2 text-3xl font-bold text-green-600 dark:text-green-300">{{ statsData.totalSpent || '$0.00' }}</p>
+                <p class="mt-2 text-3xl font-bold text-green-600 dark:text-green-300">{{ statsData.totalSpent || 'RM 0.00' }}</p>
             </div>
         </div>
 
