@@ -89,35 +89,8 @@ class AdminDashboardController extends Controller
                 ];
             });
 
-        // ── Recent inventory movements ─────────────────────────────────────────
-        // Movement has composite PK so we use DB::table to avoid Eloquent find() issues
-        $recentMovements = DB::table('movements')
-            ->orderBy('created_at', 'desc')
-            ->limit(12)
-            ->get()
-            ->map(function ($m) {
-                // Get current inventory quantity
-                $inv = DB::table('inventory')->where('inventory_id', $m->inventory_id)->first();
-                $product = $inv ? Product::find($inv->product_id) : null;
 
-                // current quantity - delta = what it was before this movement
-                $currentQty = $inv ? $inv->quantity : null;
-                $prevQty    = $currentQty !== null ? $currentQty - $m->quantity_delta : null;
 
-                return [
-                    'product_name'     => $product?->product_name ?? 'Unknown',
-                    'transaction_type' => $m->transaction_type,
-                    'quantity_delta'   => $m->quantity_delta,
-                    'prev_quantity'    => $prevQty,
-                    'new_quantity'     => $currentQty,
-                    'transaction_id'   => $m->transaction_id,
-                    'created_at'       => $m->created_at
-                        ? \Carbon\Carbon::parse($m->created_at)->format('M j, Y g:i A')
-                        : '-',
-                ];
-            });
-
-        // ── Warehouse capacity overview ────────────────────────────────────────
         $warehouses = Warehouse::all()->map(function ($wh) {
             $stock = (int) DB::table('inventory')
                 ->where('warehouse_id', $wh->warehouse_id)
@@ -161,7 +134,6 @@ class AdminDashboardController extends Controller
             'recentOrders'         => $recentOrders,
             'topProducts'          => $topProducts,
             'lowStockItems'        => $lowStockItems,
-            'recentMovements'      => $recentMovements,
             'warehouses'           => $warehouses,
             'monthlyRevenue'       => $monthlyRevenue,
         ]);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
@@ -12,6 +13,8 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified', 'role.admin'])->group(function () {
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
+    Route::post('inventory/restock', [InventoryController::class, 'restock'])->name('inventory.restock');
 });
 
 Route::middleware(['auth', 'verified', 'role.user'])->group(function () {
