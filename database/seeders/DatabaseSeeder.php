@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             TransactionSubtypeSeeder::class,
             OrderItemSeeder::class,
             ReceiptItemSeeder::class,
-            MovementSeeder::class
+            MovementSeeder::class,
+            CartItemSeeder::class
         ]);
     }
 }
