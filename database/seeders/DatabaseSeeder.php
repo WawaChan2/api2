@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             OrderItemSeeder::class,
             ReceiptItemSeeder::class,
             MovementSeeder::class,
-            CartItemSeeder::class
         ]);
     }
 }

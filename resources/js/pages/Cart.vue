@@ -31,6 +31,7 @@ interface CartItem {
     cart_item_id: number;
     product: Product;
     quantity: number;
+    unit_price: number;
 }
 
 const props = defineProps<{
@@ -90,12 +91,22 @@ function formatPrice(value: number) {
 }
 
 function handleCheckout() {
-    const payload = selectedItems.value.map((i) => ({
-        product_name: i.product.product_name,
-        quantity: i.quantity,
-        price: i.product.price,
-    }));
-    console.log('Checkout:', payload);
+    router.post('/checkout/store', {
+        items: selectedItems.value.map((item) => ({
+            product_id: item.product.product_id,
+            quantity: item.quantity,
+            price: item.product.price,
+        })),
+    });
+
+    const selectedIndices = selectedItems.value
+        .map((item) => items.value.findIndex((i) => i.cart_item_id === item.cart_item_id))
+        .filter((index) => index !== -1)
+        .sort((a, b) => b - a);
+
+    selectedIndices.forEach((index) => removeItem(index));
+
+    alert("Order placed successfully!");
 }
 </script>
 

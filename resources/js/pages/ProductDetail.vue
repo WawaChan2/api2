@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import { LucideShoppingBasket } from '@lucide/vue';
 import { catalog } from '@/routes';
 import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 defineOptions({
     layout: {
@@ -28,6 +29,15 @@ const quantity = ref(1);
 
 const increment = () => quantity.value++;
 const decrement = () => { if (quantity.value > 1) quantity.value--; };
+
+const addToCart = (productId) => {
+    router.put('/cart/store', {
+        product_id: productId,
+        quantity: quantity.value,
+    }, { preserveScroll: true });
+
+    alert("Added to cart successfully!");
+}
 </script>
 
 <template>
@@ -104,11 +114,13 @@ const decrement = () => { if (quantity.value > 1) quantity.value--; };
                 <div class="flex gap-3">
                     <button
                         class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 active:bg-blue-800"
+                        @click="addToCart(product.product_id)"
                     >
                         Buy ${{ (Number(product.price) * quantity).toFixed(2) }}
                     </button>
                     <button
                         class="flex items-center justify-center gap-2 rounded-lg border border-blue-600 px-4 py-2.5 text-sm font-semibold text-blue-600 transition hover:bg-blue-50 active:bg-blue-100 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30"
+                        @click="addToCart(product.product_id)"
                     >
                         <LucideShoppingBasket class="h-4 w-4" />
                         Add to Cart
