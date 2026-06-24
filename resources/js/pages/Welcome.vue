@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { dashboard, login } from '@/routes';
+import { dashboard, login, catalog } from '@/routes';
 import { register } from '@/routes';
 </script>
 
@@ -18,10 +18,10 @@ import { register } from '@/routes';
             <nav class="flex items-center justify-end gap-4">
                 <Link
                     v-if="$page.props.auth.user"
-                    :href="dashboard()"
+                    :href="$page.props.auth.role === 'ADMIN' ? dashboard() : catalog()"
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
-                    Dashboard
+                    {{ $page.props.auth.role === 'ADMIN' ? 'Dashboard' : 'Home' }}
                 </Link>
                 <template v-else>
                     <Link
@@ -48,12 +48,12 @@ import { register } from '@/routes';
                 <div
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 text-[13px] leading-5 shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
+                    <h1 class="mb-1 font-medium">Well met, stranger. Thy journey begins here.</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Laravel has an incredibly rich ecosystem. <br />We
-                        suggest starting with the following.
+                        Inscribe thy name upon the rolls of Hephaestus. <br />
+                        Venture forth and let curiosity be thy guide.
                     </p>
-                    <ul class="mb-4 flex flex-col lg:mb-6">
+                    <!-- <ul class="mb-4 flex flex-col lg:mb-6">
                         <li
                             class="relative flex items-center gap-4 py-2 before:absolute before:top-1/2 before:bottom-0 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]"
                         >
@@ -143,13 +143,13 @@ import { register } from '@/routes';
                                 Deploy now
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div
                     class="relative -mb-px aspect-335/364 w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f2] lg:mb-0 lg:-ml-px lg:aspect-auto lg:w-109.5 lg:rounded-t-none lg:rounded-r-lg dark:bg-[#1D0002]"
                 >
                     <!-- Laravel Logo -->
-                    <svg
+                    <!-- <svg
                         class="w-full max-w-none translate-y-0 text-[#F53003] opacity-100 transition-all duration-750 dark:text-[#F61500] starting:opacity-0 motion-safe:starting:translate-y-6"
                         viewBox="0 0 438 104"
                         fill="none"
@@ -183,10 +183,10 @@ import { register } from '@/routes';
                             d="M376.571 30.3656C356.603 30.3656 340.797 46.8497 340.797 67.1828C340.797 89.6597 356.094 104 378.661 104C391.29 104 399.354 99.1488 409.206 88.5848L398.189 80.0226C398.183 80.031 389.874 90.9895 377.468 90.9895C363.048 90.9895 356.977 79.3111 356.977 73.269H411.075C413.917 50.1328 398.775 30.3656 376.571 30.3656ZM357.02 61.0967C357.145 59.7487 359.023 43.3761 376.442 43.3761C393.861 43.3761 395.978 59.7464 396.099 61.0967H357.02Z"
                             fill="currentColor"
                         />
-                    </svg>
+                    </svg> -->
 
                     <!-- 13 -->
-                    <svg
+                    <!-- <svg
                         class="relative mt-[-6.6rem] -ml-8 w-109.5 max-w-none [--stroke-color:#1B1B18] lg:ml-0 dark:[--stroke-color:#FF750F]"
                         viewBox="0 0 440 392"
                         fill="none"
@@ -431,7 +431,10 @@ import { register } from '@/routes';
                                 mask="url(#path-5-mask)"
                             />
                         </g>
-                    </svg>
+                    </svg> -->
+
+                    <img src="/images/background/Hephaestus_artwork.webp" alt="Hephaestus Artwork">
+                    
                     <div
                         class="absolute inset-0 rounded-t-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-t-none lg:rounded-r-lg dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                     ></div>

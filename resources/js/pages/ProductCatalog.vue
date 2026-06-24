@@ -149,7 +149,7 @@ const goToProductDetail = (id) => {
                             <span
                                 class="mt-1 text-lg font-bold text-gray-900 dark:text-white"
                             >
-                                ${{ Number(product.price).toFixed(2) }}
+                                RM {{ Number(product.price).toFixed(2) }}
                             </span>
                         </div>
 
@@ -160,7 +160,7 @@ const goToProductDetail = (id) => {
                             <button
                                 class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
                             >
-                                Buy ${{ Number(product.price).toFixed(2) }}
+                                Buy RM {{ Number(product.price).toFixed(2) }}
                             </button>
                             <button
                                 class="flex items-center justify-center rounded-lg border border-blue-600 p-1.5 text-blue-600 transition-colors hover:bg-blue-50 active:bg-blue-100 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30"

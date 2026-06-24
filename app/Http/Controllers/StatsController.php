@@ -67,7 +67,7 @@ class StatsController extends Controller
             'stats' => [
                 'totalOrders'  => $totalOrdersCount,
                 'activeOrders' => $activeOrdersCount,
-                'totalSpent'   => '$' . number_format($totalSpentAmount, 2),
+                'totalSpent'   => 'RM ' . number_format($totalSpentAmount, 2),
             ],
             'purchaseHistory' => $purchaseHistory
         ]);

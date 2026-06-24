@@ -101,7 +101,7 @@ const user = computed(() => page.props.auth?.user || {});
                             <p class="text-sm text-gray-600 dark:text-gray-400">{{ order.created_at }}</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-lg font-bold">{{ order.total_amount }}</p>
+                            <p class="text-lg font-bold">RM {{ order.total_amount }}</p>
                             <span :class="[
                                 'inline-block px-2 py-1 text-xs font-semibold rounded',
                                 order.status === 'DELIVERED' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :

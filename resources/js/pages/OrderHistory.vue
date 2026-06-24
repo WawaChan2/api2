@@ -126,7 +126,7 @@ const cancelOrder = (orderId: number)=>{
 
             <select
                 v-model="statusFilter"
-                class="px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-blue-500 text-sm bg-white dark:bg-[#18181b] dark:text-white min-w-[140px] shadow-sm cursor-pointer"
+                class="px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-blue-500 text-sm bg-white dark:bg-[#18181b] dark:text-white min-w-35 shadow-sm cursor-pointer"
             >
                 <option value="">All Status</option>
                 <option value="PENDING">Pending</option>

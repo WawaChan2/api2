@@ -84,7 +84,7 @@ const addToCart = (productId) => {
                 <div>
                     <p class="text-sm text-gray-400 dark:text-gray-500">Price</p>
                     <p class="text-3xl font-bold text-gray-900 dark:text-white">
-                        ${{ Number(product.price).toFixed(2) }}
+                        RM {{ Number(product.price).toFixed(2) }}
                     </p>
                 </div>
 
@@ -116,7 +116,7 @@ const addToCart = (productId) => {
                         class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 active:bg-blue-800"
                         @click="addToCart(product.product_id)"
                     >
-                        Buy ${{ (Number(product.price) * quantity).toFixed(2) }}
+                        Buy RM {{ (Number(product.price) * quantity).toFixed(2) }}
                     </button>
                     <button
                         class="flex items-center justify-center gap-2 rounded-lg border border-blue-600 px-4 py-2.5 text-sm font-semibold text-blue-600 transition hover:bg-blue-50 active:bg-blue-100 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30"
