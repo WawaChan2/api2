@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\StatsController;
 Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified', 'role.admin'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware(['auth', 'verified', 'role.user'])->group(function () {

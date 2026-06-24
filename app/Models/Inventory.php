@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     use HasFactory;
-    
-    protected $table = 'inventory';
+
+    protected $table      = 'inventory';
+    protected $primaryKey = 'inventory_id';
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'warehouse_id');
+    }
 }
